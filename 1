@@ -1,0 +1,99 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+int n=0,sm=5;
+struct hssv {
+  char shsv[9];
+  char hoten[30];
+  struct { int ng,th,na} ngaysinh;
+  float diemtdc;
+} **ds, *tmp, sv;
+void bosung();
+void sapxep();
+void inds();
+int main() {
+  char ch;
+  ds= (struct hssv **)calloc(sm,sizeof(struct hssv *));
+  while(1) {
+    system("cls");
+    printf("\n        CHUONG TRINH QUAN LY SINH VIEN");
+    printf("\n                1. Bo sung danh sach");
+    printf("\n                2. sap xep danh sach");
+    printf("\n                3. In danh sach");
+    printf("\n               Bam 1-3 de chon fim khac de ket thuc");
+    fflush(stdin);
+    ch=getch();
+    if (ch=='1') bosung();
+    else if (ch=='2') sapxep();
+    else if (ch=='3') inds();
+    else {
+       printf("\n Chan roi a ? Y/...");
+       ch=getch();
+       if (ch=='Y' || ch=='y') break;
+    }
+  }
+}
+void bosung() {
+   while(1) {
+     printf("\n Vao ho so sv thu %d \n",n+1);
+     fflush(stdin); 
+     printf("\n SHSV : ");
+     gets(sv.shsv);
+     if(sv.shsv[0]=='\0') break;
+     fflush(stdin); 
+     printf("\n Ho ten : ");
+     gets(sv.hoten);
+     printf("\n Sinh ngay  : ");
+     scanf("%d",&sv.ngaysinh.ng);
+     printf("\n   thang  : ");
+     scanf("%d",&sv.ngaysinh.th);
+     printf("\n    nam  : ");
+     scanf("%d",&sv.ngaysinh.na);
+     printf("\n Diem TDC  : ");
+     scanf("%f",&sv.diemtdc);
+	 ds[n] = (struct hssv *)malloc(sizeof(struct hssv));
+     *(ds[n])=sv;
+     n++;
+     if(n>=sm) {
+       sm+=5;
+       ds=(struct hssv **)realloc(ds,sm);
+     }
+   }
+}
+char * name(char *ht) {
+	int i;
+	i=strlen(ht)-1;
+	while(i>-1 && ht[i] ==' ') i--;
+	while(i>-1 && ht[i] !=' ') i--;
+	return ht+i+1;
+}
+void sapxep() {
+   int i,j;
+   for(i=0;i<n-1;i++)
+   for(j=i+1;j<n;j++)
+     if (strcmp(name(ds[i]->hoten),name(ds[j]->hoten)) >0) {
+       tmp=ds[i];
+       ds[i]=ds[j];
+       ds[j]=tmp;
+     }
+     else if (strcmp(name(ds[i]->hoten),name(ds[j]->hoten)) ==0)
+       if (strcmp(ds[i]->hoten,ds[j]->hoten) >0){
+       tmp=ds[i];
+       ds[i]=ds[j];
+       ds[j]=tmp;
+     }       
+   printf("\n da sap xep xong ?");
+   getch();
+}
+void inds() {
+  int i;
+  printf("\n Danh sach sinh vien \n");
+  printf("\n ----------------------------------------------------------");
+  printf("\n |  SHSV  |          Ho va ten          | Ngay sinh| Diem |");
+  printf("\n |--------|-----------------------------|----------|------|");
+     
+  for(i=0;i<n;i++)  
+     printf("\n |%-8s|%-30s|%2d/%2d/%4d| %5.2f|",
+           ds[i]->shsv,ds[i]->hoten,ds[i]->ngaysinh.ng,ds[i]->ngaysinh.th,ds[i]->ngaysinh.na,ds[i]->diemtdc);      
+  getch();
+}
