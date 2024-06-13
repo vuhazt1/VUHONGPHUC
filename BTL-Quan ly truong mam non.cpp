@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include <string.h>
+#include <windows.h>
 #define MAX 100
 
 using namespace std;
@@ -52,6 +53,7 @@ void hienthiHS(HS &hs, int id);
 void htHS(HS a[], int id, int n);
 void delele(HS a[], int id);
 int idCount = 0;
+void sapxep();
 int main() {
 	int key;
 	char fileName[] = "hocsinh.txt"; //Biến này lưu tên tập tin mà dữ liệu sinh viên sẽ được đọc vào
@@ -103,6 +105,7 @@ int main() {
                 break;
                 }
             case 4:
+                system("cls");
                 int htID;
                 cout<<"\nNhap ID hoc sinh can hien thi:";
                 cin>>htID;
@@ -183,6 +186,7 @@ void nhapHS(HS a[], int id, int n) {
     cout << "\nNhap hoc sinh thu "<<n+1;
 	nhapThongtinHS(a[n],id);
 	printLine(40);
+	Sleep(3000);
 }
 
 void capNhatthongtinHS(HS &hs) {
@@ -237,7 +241,7 @@ void hienthiHS(HS &hs, int id){
     hs.id=id;
     cout << "Ho va ten: ";cout<<hs.hoten<<endl;
 
-	cout << " Gioi tinh: ";cout<<hs.gioitinh<<endl;
+	cout << "Gioi tinh: ";cout<<hs.gioitinh<<endl;
 
 	cout << "Tuoi: "; cout << hs.tuoi<<endl;
 	cout << "Sinh ngay: "; cout<<hs.ngaysinh.ng<<endl;
