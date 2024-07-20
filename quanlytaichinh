@@ -1,0 +1,142 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <algorithm>
+
+//Quan ly tai chinh nam 2023
+const int Max_thu=2000000000;
+const int Max_chi=2000000000;
+const int chiCount=12;
+const int Max_thuCount=10;
+using namespace std;
+struct cackhoanthu{
+    int hocphi;
+    int taitro;
+
+};
+struct cackhoanchi{
+    int a,b,c,d,e;
+
+};
+void nhapthu(cackhoanthu ckt){
+    cout<<"Hay nhap hoc phi thu duoc cua nam 2023:";
+    cin>>ckt.hocphi;
+    cout<<"Hay nhap so tien duoc tai tro nam 2023:";
+    cin>>ckt.taitro;
+   int tongthu=ckt.hocphi+ckt.taitro;
+    if(tongthu>Max_thu) cout<<"Nhap lai";
+}
+void nhapchi(cackhoanchi chi[]){
+
+    cackhoanchi &ckc=chi[chiCount];
+    cout<<"Nhap chi phi mua do dung hoc tap:";
+    cin>>ckc.a;
+    cout<<"Nhap chi phi thuc an :";
+    cin>>ckc.b;
+    cout<<"Nhap chi phi dien nuoc :";
+    cin>>ckc.c;
+    cout<<"Nhap chi phi tra luong giao vien :";
+    cin>>ckc.d;
+    cout<<"Nhap chi phi phu khac:";
+    cin>>ckc.e;
+
+}
+void hienthu(const cackhoanthu &ckt){
+
+   cout<<"Khoan thu tu hoc phi:"<<ckt.hocphi<<"dong"<<endl;
+   cout<<"Khoan thu tu tai tro:"<<ckt.taitro<<"dong"<<endl;
+   cout<<"------------------------------";
+}
+void hienchi1(const cackhoanchi &t){
+    cout<<"Chi phi mua do dung hoc tap:"<<t.a<<"dong"<<endl;
+    cout<<"Chi phi mua thuc an:"<<t.b<<"dong"<<endl;
+    cout<<"Chi phi dien nuoc:"<<t.c<<"dong"<<endl;
+    cout<<"Chi phi tra luong giao vien:"<<t.d<<"dong"<<endl;
+    cout<<"Chi phi khac:"<<t.e<<"dong"<<endl;
+    cout<<"-------------------------"<<endl;
+}
+void hienchi2(const cackhoanchi ckc[]){
+
+
+
+        const cackhoanchi &t=ckc[chiCount];
+hienchi1(t);
+
+    }
+
+
+
+void loinhuan(cackhoanchi ckc[],cackhoanthu &ckt){
+        cackhoanchi &t=ckc[chiCount];
+        int tongthu=ckt.hocphi+ckt.taitro;
+        int tongchi=t.a+t.b+t.c+t.d+t.e;
+        if(tongthu>tongchi) cout<<"Tong tien duong:"<<tongthu-tongchi;
+        if(tongthu<tongchi) cout<<"tong tien am:"<<tongchi-tongthu;
+
+}
+void Swap(int &a, int &b){
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+void sapxep(cackhoanchi ckc[]){
+    cackhoanchi &t=ckc[chiCount];
+    int n=5;
+    int a[]={t.a,t.b,t.c,t.d,t.e};
+    for (int i = 0; i < n - 1; i++)
+		for (int j = n - 1; j > i; j--)
+		   if(a[j] < a[j-1])
+		       Swap(a[j], a[j-1]);
+      cout<<"khoan chi nho nhat la:"<<a[0]<<endl;
+      cout<<"Khoan chi lon nhat la:"<<a[4];
+      cout<<"-------------------------"<<endl;
+}
+
+
+int main() {
+    cackhoanthu ckt;
+    cackhoanchi ckc[chiCount];
+    int choice;
+
+    do {
+        cout << "Menu:" << endl;
+        cout << "1. Nhap so tien thu" << endl;
+        cout << "2. Nhap so tien chi" << endl;
+        cout << "3. Hien ra danh sach cac khoan thu" << endl;
+        cout << "4. Hien ra danh sach cac khoan chi" << endl;
+        cout << "5. Khoan chi lon nhat va nho nhat " << endl;
+        cout << "6. Tong loi nhuan cua nha truong trong nam"<<endl;
+        cout << "0. Thoat" << endl;
+        cout << "Nhap lua chon cua ban: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+               nhapthu(ckt);
+                break;
+            case 2:
+               nhapchi(ckc);
+                break;
+            case 3:
+               hienthu(ckt);
+                break;
+            case 4:
+                hienchi2(ckc);
+                break;
+            case 5:
+               sapxep(ckc);
+                break;
+            case 6:
+                loinhuan(ckc,ckt);
+                break;
+            case 0:
+                cout << "Thoat chuong trinh." << endl;
+                break;
+            default:
+                cout << "Lựa chọn không hợp lệ, vui lòng thử lại!" << endl;
+        }
+    } while (choice != 0);
+
+    return 0;
+}
